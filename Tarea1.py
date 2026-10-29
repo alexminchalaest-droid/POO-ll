@@ -21,3 +21,6 @@ edad = int(input("Ingrese su edad: "))
 print("Tu edad es:", edad)
 saldo = float(input("Ingrese su saldo: "))
 print("Tu saldo es:", saldo)
+if edad >= 18:
+    print("Eres mayor de edad")
+    
