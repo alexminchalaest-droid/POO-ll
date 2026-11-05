@@ -1,0 +1,12 @@
+notas=[10,8,9,5]
+notas.append(7)
+print(notas[3])
+print(max(notas))
+print(len(notas))
+print(notas[-1])
+print(sum(notas))
+print(notas[0])
+print(notas[0:2])
+print(min(notas))
+print(sorted(notas))
+notas
