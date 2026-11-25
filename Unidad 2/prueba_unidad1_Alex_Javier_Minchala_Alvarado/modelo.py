@@ -7,10 +7,8 @@ class Equipo:
 
     def prestar(self, cantidad):
         if cantidad <= 0:
-            print("Error, la cantidad debe ser mayor que cero")
             return False
         if cantidad > self.unidades:
-            print(f"Error, solo hay {self.unidades} unidades")
             return False
         self.unidades -= cantidad
         return True
@@ -25,22 +23,32 @@ class ListaEquipos:
 
     def cargar_equipos(self):
         datos = [
-        Equipo(1, "Multimetro", "Fluke", 10),
-        Equipo(2, "Osciloscopio", "Rigol", 4),]
-        for f in datos:
-            self.lista.append(f)
+            Equipo(1, "Multimetro", "Fluke", 10),
+            Equipo(2, "Osciloscopio", "Rigol", 4),
+        ]
+        self.lista.extend(datos)
 
     def registrar_equipo(self, nombre, marca, unidades):
         codigo = len(self.lista) + 1
-        self.lista.append(Equipo(codigo, nombre, marca, unidades))
-        print(f"Registrado con el codigo {codigo}.")
+        equipo = Equipo(codigo, nombre, marca, unidades)
+        self.lista.append(equipo)
+        return f"Equipo registrado con el codigo {equipo.codigo}."
 
     def mostrar_equipos(self):
-       return self.lista
+        return self.lista
+
+    def buscar(self, codigo):
+        for equipo in self.lista:
+            if equipo.codigo == codigo:
+                return equipo
+        return None
 
     def prestar_equipo(self, codigo, cantidad):
         equipo = self.buscar(codigo)
         if equipo is None:
-            print("Error, el codigo no existe")
-            return False
+            return False, "Error, el codigo no existe"
+        if cantidad <= 0:
+            return False, "Error, la cantidad debe ser mayor que cero"
+        if cantidad > equipo.unidades:
+            return False, f"Error, solo hay {equipo.unidades} unidades"
         return equipo.prestar(cantidad)
